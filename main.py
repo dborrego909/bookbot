@@ -1,5 +1,6 @@
 from stats import char_count_dict
 from stats import num_words
+import sys
 
 def get_book_text(filepath):
     with open(filepath) as f:
@@ -10,8 +11,12 @@ def sort_on(item):
     return item[1]
 
 def main():
+    if len(sys.argv) < 2:
+        print(f"Usage: python3 main.py <path_to_book>")
+        sys.exit(1)
 
-    file_contents = get_book_text("./books/frankenstein.txt")
+    filepath = sys.argv[1]
+    file_contents = get_book_text(filepath)
     word_count = num_words(file_contents)
     char_dict = char_count_dict(file_contents)
     sorted_char = sorted(char_dict.items(), key=sort_on, reverse=True)
